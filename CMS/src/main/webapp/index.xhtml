@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Courier Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style type="text/css">
+        :root {
+            --primary-color: #99ccff;
+            --secondary-color: #F39C12;
+            --accent-color: #E74C3C;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .navbar-custom {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .navbar-nav .nav-link {
+            color: #ffffff;
+            margin-right: 40px;
+        }
+        .navbar-custom .navbar-brand img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        .navbar-nav .nav-link {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-nav .nav-link .fa {
+            margin-right: 8px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary-color);
+        }
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #ffffff;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .card-text {
+            font-size: 18px;
+            color: #555555;
+        }
+        .about-section {
+            padding: 40px 0;
+            background-color: #f8f9fa;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+        .section-title {
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        .feature-box {
+            margin-bottom: 20px;
+        }
+        .feature-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        .carousel-item blockquote {
+            font-size: 20px;
+            font-style: italic;
+            margin: 0;
+        }
+        .carousel-item footer {
+            font-size: 16px;
+            color: var(--secondary-color);
+            margin-top: 10px;
+        }
+        .about-image {
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .about-image:hover {
+            transform: scale(1.05);
+        }
+        .about-text {
+            font-size: 18px;
+            line-height: 2.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="resources/images/cmslogo.png" alt="CMS Logo" />
+                COURIER MANAGEMENT SYSTEM
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a href="index.xhtml" class="navbar-brand"><i class="fa fa-home"></i> Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a href="Aboutus.xhtml" class="nav-link active" aria-current="page"><i class="fa fa-info-circle"></i> About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contactus.html" class="nav-link"><i class="fa fa-envelope"></i> Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Login.jsf" class="nav-link active" aria-current="page"><i class="fa fa-sign-in-alt"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="signup.jsf" class="nav-link active" aria-current="page"><i class="fa fa-user-plus"></i> Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Fast, Reliable Courier Services</h1>
+            <p class="hero-subtitle">Delivering your packages with care and efficiency</p>
+            <a href="#services" class="btn btn-primary btn-lg">Explore Our Services</a>
+        </div>
+    </section>
+
+    <div class="container my-5 about-section">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="section-title">About Courier Management</h2>
+                <p class="about-text">Courier management is the process of overseeing and coordinating the transportation of packages and documents from one location to another. Effective courier management ensures timely deliveries, efficient use of resources, and high customer satisfaction.</p>
+                <p class="about-text">Our Courier Management System provides a comprehensive solution for courier companies to manage their operations efficiently. With our user-friendly interface, you can easily track packages, schedule deliveries, and manage customer information.</p>
+            </div>
+            <div class="col-md-6">
+                <img src="resources/images/cms3.png" class="img-fluid about-image" alt="About CMS"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5" id="services">
+        <h2 class="section-title text-center mb-5">Our Services</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80" class="card-img-top" alt="Domestic Delivery"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Domestic Delivery</h5>
+                        <p class="card-text">Fast and reliable deliveries within the country.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80" class="card-img-top" alt="International Shipping"/>
+                    <div class="card-body">
+                        <h5 class="card-title">International Shipping</h5>
+                        <p class="card-text">Global shipping solutions for your packages.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80" class="card-img-top" alt="Express Delivery"/>
+                    <div class="card-body">
+                        <h5 class="card-title">Express Delivery</h5>
+                        <p class="card-text">Time-sensitive deliveries for urgent packages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Testimonials</h3>
+                        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <blockquote class="blockquote text-center">
+                                        <p>"The Courier Management System has streamlined our operations and improved our delivery times. Our customers are happier than ever."</p>
+                                        <footer class="blockquote-footer">Sai Charan Tej, Logistics Manager</footer>
+                                    </blockquote>
+                                </div>
+                                <div class="carousel-item">
+                                    <blockquote class="blockquote text-center">
+                                        <p>"This system has made it so much easier to manage our couriers and track packages. The real-time updates are a game-changer."</p>
+                                        <footer class="blockquote-footer">Megha Syam, Operations Director</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 Courier Management System. All rights reserved.
+    </footer>
+
+    <script type="text/javascript">
+        var myCarousel = document.querySelector('#testimonialCarousel');
+        var carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 5000,
+            wrap: true
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>Orders Details</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #93a5cf 0%, #e4efe9 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleAnimation 1s ease-out;
+        }
+        
+        @keyframes titleAnimation {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .order-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .order-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .order-card.sent {
+            background-color: rgba(144, 202, 249, 0.9);
+            border-left: 5px solid #1565C0;
+        }
+        
+        .order-card.received {
+            background-color: rgba(165, 214, 167, 0.9);
+            border-left: 5px solid #2E7D32;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .order-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .order-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .order-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #3f51b5;
+        }
+        
+        .order-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #3f51b5;
+        }
+        
+        .order-detail {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .order-label {
+            font-weight: 600;
+            color: #3f51b5;
+            width: 80px;
+        }
+        
+        .order-value {
+            color: #333;
+            flex: 1;
+        }
+        
+        .order-type {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #3f51b5;
+            color: white;
+            border-radius: 50px;
+            font-size: 0.9em;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .order-type:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(63, 81, 181, 0.4);
+        }
+        
+        .order-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .order-status.sent {
+            background-color: #1565C0;
+            color: white;
+        }
+        
+        .order-status.received {
+            background-color: #2E7D32;
+            color: white;
+        }
+        
+        .order-value.cost {
+            font-weight: 600;
+            color: #43a047;
+        }
+        
+        @media (max-width: 768px) {
+            .order-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container">
+        <h2>Orders Details</h2>
+        <h:form>
+            <div class="order-container">
+                <ui:repeat value="#{sd.list}" var="row">
+                    <div class="order-card #{row.sname eq session.getAttribute('username') ? 'sent' : 'received'}">
+                        <div class="order-status #{row.sname eq session.getAttribute('username') ? 'sent' : 'received'}">
+                            #{row.sname eq session.getAttribute('username') ? 'Sent' : 'Received'}
+                        </div>
+                        <div class="order-detail">
+                            <span class="order-label">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzNmNTFiNSI+PHBhdGggZD0iTTIwIDRINGMtMS4xIDAtMS45OS45LTEuOTkgMkwyIDE4YzAgMS4xLjkgMiAyIDJoMTZjMS4xIDAgMi0uOSAyLTJWNmMwLTEuMS0uOS0yLTItMnptMCAxNEg0VjhodDEwdjEwek0yMCA4bC04IDUtOC01VjZsOCA1IDgtNXYyeiIvPjwvc3ZnPg==" alt="Sender" class="icon" />
+                                Sender:
+                            </span>
+                            <span class="order-value">#{row.sname}</span>
+                        </div>
+                        <div class="order-detail">
+                            <span class="order-label">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzNmNTFiNSI+PHBhdGggZD0iTTEyIDJDOC4xMyAyIDUgNS4xMyA1IDljMCA1LjI1IDcgMTMgNyAxM3M3LTcuNzUgNy0xM2MwLTMuODctMy4xMy03LTctN3ptMCA5LjVjLTEuMzggMC0yLjUtMS4xMi0yLjUtMi41czEuMTItMi41IDIuNS0yLjUgMi41IDEuMTIgMi41IDIuNS0xLjEyIDIuNS0yLjUgMi41eiIvPjwvc3ZnPg==" alt="Receiver" class="icon" />
+                                Receiver:
+                            </span>
+                            <span class="order-value">#{row.rname}</span>
+                        </div>
+                        <div class="order-detail">
+                            <span class="order-label">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzNmNTFiNSI+PHBhdGggZD0iTTIwIDhINGMtMS4xIDAtMiAuOS0yIDJWMjBjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlYxMGMwLTEuMS0uOS0yLTItMnptMCAxMkg0VjEwaDRsMi0zaDRsMiAzaDRWMjB6Ii8+PC9zdmc+" alt="Weight" class="icon" />
+                                Weight:
+                            </span>
+                            <span class="order-value">#{row.cweight} kg</span>
+                        </div>
+                        
+                        <div class="order-detail">
+                           <span class="order-label">
+                              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzNmNTFiNSI+PHBhdGggZD0iTTExLjggMTAuOWMtMi4yNy0uNTktMy0xLjItMy0yLjE1IDAtMS4wOSAxLjAxLTEuODUgMi43LTEuODUgMS43OCAwIDIuNDQuODUgMi41IDIuMWgyLjIxYy0uMDctMS43Mi0xLjEyLTMuMy0zLjIxLTMuODFWM2gtM3YyLjE2Yy0xLjk0LjQyLTMuNSAxLjY4LTMuNSAzLjYxIDAgMi4zMSAxLjkxIDMuNDYgNC43IDQuMTMgMi41LjYgMyAxLjQ4IDMgMi40MSAwIC42OS0uNDkgMS43OS0yLjcgMS43OS0yLjA2IDAtMi44Ny0uOTItMi45OC0yLjFoLTIuMmMuMTIgMi4xOSAxLjc2IDMuNDIgMy42OCAzLjgzVjIxaDN2LTIuMTVjMS45NS0uMzcgMy41LTEuNSAzLjUtMy41NSAwLTIuODQtMi40My0zLjgxLTQuNy00LjR6Ii8+PC9zdmc+" alt="Cost" class="icon" />
+                                 Cost:
+                            </span>
+                            <span class="order-value cost">
+                                <h:outputText value="#{row.cost}">
+                                    <f:convertNumber type="currency" currencySymbol="₹" maxFractionDigits="2" />
+                                </h:outputText>
+                            </span>
+                        </div>
+                        <div class="order-type">#{row.ctype}</div>
+                    </div>
+                    
+                </ui:repeat>
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

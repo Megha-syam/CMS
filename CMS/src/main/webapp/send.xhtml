@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head> 
+    <title>ExpressShip - Send Packages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style type="text/css">
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-image: url('resources/images/cms5.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 60%;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.05)
+            );
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            background-color: #f7f9fc;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-fill {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+        .button {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        .button:active {
+            transform: translateY(-1px);
+        }
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        .success-message {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: scale(0.8);
+            transition: transform 0.5s;
+        }
+        .success-message h3 {
+            color: #2ecc71;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .success-message p {
+            font-size: 18px;
+            color: #34495e;
+            margin-bottom: 30px;
+        }
+        .close-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .close-button:hover {
+            background-color: #2980b9;
+        }
+        .form-icon {
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            color: #bdc3c7;
+            transition: color 0.3s ease;
+        }
+        .form-group input:focus + .form-icon,
+        .form-group textarea:focus + .form-icon {
+            color: #3498db;
+        }
+        .package-animation {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%233498db" d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.991.991 0 013 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15L6.04 7.5 12 10.85l5.96-3.35L12 4.15zM5 15.91l6 3.38v-6.71L5 9.21v6.7zm14 0v-6.7l-6 3.37v6.71l6-3.38z"/></svg>');
+            background-size: contain;
+            opacity: 0.5;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container">
+        <div class="package-animation"></div>
+        <h2>ExpressShip Package Delivery</h2>
+        
+        <div class="progress-bar">
+            <span class="progress-bar-fill" style="width: 0%;"></span>
+        </div>
+        
+        <h:form id="packageForm">
+            <div id="part1">
+                <div class="form-group">
+                    <label for="sender">Sender Name</label>
+                    <h:inputText id="sender" value="#{send.sname}" required="true" />
+                    <i class="form-icon">👤</i>
+                </div>
+                <div class="form-group">
+                    <label for="snumber">Sender Phone Number</label>
+                    <h:inputText id="snumber" value="#{send.snumber}" required="true" />
+                    <i class="form-icon">📞</i>
+                </div>
+                <div class="form-group">
+                    <label for="saddress">Pickup City</label>
+                    <h:inputTextarea id="pc" value="#{send.scity}" required="true" />
+                    <i class="form-icon">📍</i>
+                </div>
+                
+                <div class="form-group">
+                    <label for="saddress">Pickup Point(Address)</label>
+                    <h:inputTextarea id="saddress" value="#{send.saddress}" required="true" />
+                    <i class="form-icon">📍</i>
+                </div>
+                
+                <div class="form-group">
+                    <label for="saddress"> Pincode</label>
+                    <h:inputTextarea id="scode" value="#{send.spincode}" required="true" />
+                    <i class="form-icon">📍</i>
+                </div>
+                <h:commandButton value="Next" onclick="showPart(2); return false;" styleClass="button" />
+            </div>
+            
+            <div id="part2" style="display: none;">
+                <div class="form-group">
+                    <label for="rname">Receiver Name</label>
+                    <h:inputText id="rname" value="#{send.rname}" required="true" />
+                    <i class="form-icon">👤</i>
+                </div>
+                <div class="form-group">
+                    <label for="rnumber">Receiver Phone Number</label>
+                    <h:inputText id="rnumber" value="#{send.rnumber}" required="true" />
+                    <i class="form-icon">📞</i>
+                </div>
+                <div class="form-group">
+                    <label for="raddress">Destination City</label>
+                    <h:inputTextarea id="dc" value="#{send.rcity}" required="true" />
+                    <i class="form-icon">📍</i>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="raddress">Destination Address</label>
+                    <h:inputTextarea id="raddress" value="#{send.raddress}" required="true" />
+                    <i class="form-icon">📍</i>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="raddress">Pincode</label>
+                    <h:inputTextarea id="rcode" value="#{send.rpincode}" required="true" />
+                    <i class="form-icon">📍</i>
+                </div>
+                <h:commandButton value="Next" onclick="showPart(3); return false;" styleClass="button" />
+            </div>
+            
+            <div id="part3" style="display: none;">
+                <div class="form-group">
+                    <label for="ctype">Content Type</label>
+                    <h:inputText id="ctype" value="#{send.ctype}" required="true" />
+                    <i class="form-icon">📦</i>
+                </div>
+                <div class="form-group">
+                    <label for="cweight">Package Weight (kg)</label>
+                    <h:inputText id="pcost" value="#{send.cweight}" required="true" />
+                    <i class="form-icon">⚖️</i>
+                </div>
+                
+                <h:commandButton action="#{send.ejbsend()}" value="Send Package" styleClass="button" onclick="showSuccessMessage();" />
+            </div>
+        </h:form>
+    </div>
+    
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-message">
+            <h3>Order Placed Successfully!</h3>
+            <p>Your package is on its way to the recipient.</p>
+            <p>Tracking Number: <strong id="trackingNumber"></strong></p>
+            <button class="close-button" onclick="closeSuccessMessage()">Close</button>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+    function validateForm(partNumber) {
+        var valid = true;
+        document.querySelectorAll('#part' + partNumber + ' .form-group input, #part' + partNumber + ' .form-group textarea').forEach(input => {
+            if (!input.value.trim()) {
+                valid = false;
+                gsap.to(input, {duration: 0.3, borderColor: '#e74c3c'});
+            } else {
+                gsap.to(input, {duration: 0.3, borderColor: '#bdc3c7'});
+            }
+        });
+        return valid;
+    }
+
+    function showPart(partNumber) {
+        if (partNumber > 1 &amp;&amp; !validateForm(partNumber - 1)) {
+            alert("Please fill all fields in this section before proceeding.");
+            return;
+        }
+        gsap.to('.container', {duration: 0.5, opacity: 0, scale: 0.95, onComplete: () => {
+            document.getElementById('part1').style.display = 'none';
+            document.getElementById('part2').style.display = 'none';
+            document.getElementById('part3').style.display = 'none';
+            document.getElementById('part' + partNumber).style.display = 'block';
+
+            var progressBar = document.querySelector('.progress-bar-fill');
+            gsap.to(progressBar, {duration: 0.5, width: ((partNumber - 1) * 33.33) + '%'});
+
+            gsap.to('.container', {duration: 0.5, opacity: 1, scale: 1});
+        }});
+    }
+            
+        
+        function showSuccessMessage() {
+            var overlay = document.getElementById('successOverlay');
+            var message = overlay.querySelector('.success-message');
+            var trackingNumber = generateTrackingNumber();
+            
+            document.getElementById('trackingNumber').textContent = trackingNumber;
+            
+            overlay.style.visibility = 'visible';
+            gsap.to(overlay, {duration: 0.5, opacity: 1});
+            gsap.to(message, {duration: 0.5, scale: 1, delay: 0.2});
+        }
+        
+        function closeSuccessMessage() {
+            var overlay = document.getElementById('successOverlay');
+            var message = overlay.querySelector('.success-message');
+            
+            gsap.to(message, {duration: 0.5, scale: 0.8});
+            gsap.to(overlay, {duration: 0.5, opacity: 0, delay: 0.2, onComplete: () => {
+                overlay.style.visibility = 'hidden';
+            }});
+        }
+        
+        function generateTrackingNumber() {
+            return 'ES' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+        
+        gsap.from('.container', {duration: 1, opacity: 0, y: 50, ease: 'power3.out'});
+        
+        gsap.to('.package-animation', {
+            duration: 2,
+            y: 10,
+            rotation: 5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut'
+        });
+        
+        // Animate form icons on input focus
+        document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+            input.addEventListener('focus', () => {
+                gsap.to(input.nextElementSibling, {duration: 0.3, scale: 1.2, color: '#3498db'});
+            });
+            input.addEventListener('blur', () => {
+                gsap.to(input.nextElementSibling, {duration: 0.3, scale: 1, color: '#bdc3c7'});
+            });
+        });
+    </script>
+</h:body>
+</html>

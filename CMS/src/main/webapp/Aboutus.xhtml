@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About Us - SwiftShip Courier Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+       .overlay {
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent white overlay */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Positioned behind the content */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blur effect for the background */
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #34495e;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #34495e;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .feature {
+            flex-basis: calc(33.33% - 20px);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .feature {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container animated">
+        <header>
+            <h1>Courier Management System</h1>
+            <p class="tagline">Streamlining Your Logistics, Delivering Excellence</p>
+        </header>
+
+        <main>
+            <section id="about">
+                <h2>About Us</h2>
+                <p>
+                    Welcome to Courier Management System, your trusted partner in courier management solutions. With years of experience in the logistics industry, we've developed a cutting-edge courier management system that revolutionizes the way businesses handle their shipping operations.
+                </p>
+                <p>
+                    Our mission is to empower businesses of all sizes with efficient, reliable, and cost-effective courier management tools. We understand the challenges faced by modern companies in managing their shipments, and we're here to provide innovative solutions that streamline your logistics processes.
+                </p>
+                <p>
+                    At SwiftShip, we believe that technology should simplify your operations, not complicate them. That's why we've created a user-friendly platform that integrates seamlessly with your existing systems, providing real-time tracking, automated dispatching, and comprehensive reporting capabilities.
+                </p>
+            </section>
+
+            <section id="features" class="features">
+                <div class="feature">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Real-time Tracking</h3>
+                    <p>Monitor your shipments in real-time, providing you and your customers with up-to-the-minute information on package locations and estimated delivery times.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-route"></i>
+                    <h3>Route Optimization</h3>
+                    <p>Our advanced algorithms calculate the most efficient routes for your couriers, reducing delivery times and fuel costs while increasing customer satisfaction.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics &amp; Reporting</h3>
+                    <p>Gain valuable insights into your courier operations with our comprehensive analytics and reporting tools, helping you make data-driven decisions to improve your business.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
